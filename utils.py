@@ -38,14 +38,14 @@ def get_entropy(data):
 		entropy -= p * math.log2(p)
 	return entropy
 
-def is_ascii_printable(byte):
-	return byte >= 0x20 and byte < 0x7f
+def is_ascii_in_strings(byte):
+	return ( byte >= 0x20 and byte < 0x7f ) or byte == 9
 
 def get_strings(data, min_strlen=4):
 	strings = {}
 	s = bytearray()
 	for ch in data:
-		if is_ascii_printable(ch):
+		if is_ascii_in_strings(ch):
 			s.append(ch)
 		else:
 			if len(s) >= min_strlen:
@@ -70,7 +70,7 @@ class StringsFinder:
 		s = bytearray()
 		self.on_begin()
 		for ch in data:
-			if is_ascii_printable(ch):
+			if is_ascii_in_strings(ch):
 				s.append(ch)
 			else:
 				if len(s) >= min_strlen:
