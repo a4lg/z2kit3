@@ -62,3 +62,28 @@ def get_strings(data, min_strlen=4):
 		else:
 			strings[s] += 1
 	return strings
+
+class StringsFinder:
+	def __init__(self):
+		pass
+	def process(self, data, min_strlen=4):
+		s = bytearray()
+		self.on_begin()
+		for ch in data:
+			if is_ascii_printable(ch):
+				s.append(ch)
+			else:
+				if len(s) >= min_strlen:
+					s = bytes(s)
+					self.on_str(s)
+				s = bytearray()
+		if len(s) >= min_strlen:
+			s = bytes(s)
+			self.on_str(s)
+		self.on_end()
+	def on_begin(self):
+		pass
+	def on_str(self, bstr):
+		pass
+	def on_end(self):
+		pass
