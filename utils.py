@@ -55,7 +55,7 @@ def get_strings(data, min_strlen=4):
 				else:
 					strings[s] += 1
 			s = bytearray()
-	if len(s) >= 4:
+	if len(s) >= min_strlen:
 		s = bytes(s)
 		if s not in strings:
 			strings[s] = 1
