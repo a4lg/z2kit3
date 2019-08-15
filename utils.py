@@ -63,6 +63,26 @@ def get_strings(data, min_strlen=4):
 			strings[s] += 1
 	return strings
 
+def get_strings_count(data, bstr):
+	l = len(bstr)
+	if l == 0:
+		return 0
+	prev = 0
+	n = 0
+	while prev < len(data):
+		curr = data.find(bstr, prev)
+		if curr == -1:
+			break
+		prev = curr + 1
+		b0 = curr
+		b1 = curr + l
+		if b0 != 0 and is_ascii_in_strings(data[b0-1]):
+			continue
+		if b1 < len(data) and is_ascii_in_strings(data[b1]):
+			continue
+		n += 1
+	return n
+
 class StringsFinder:
 	def __init__(self):
 		pass
